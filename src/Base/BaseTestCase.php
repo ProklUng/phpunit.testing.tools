@@ -6,6 +6,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Prokl\TestingTools\Tools\Macros\MacrosInit;
 use Prokl\TestingTools\Traits\ExceptionAsserts;
 use Prokl\TestingTools\Traits\LoaderTestContainerTrait;
 use Prokl\TestingTools\Traits\PHPUnitTrait;
@@ -95,6 +96,17 @@ class BaseTestCase extends TestCase
         parent::tearDown();
 
         Mockery::close();
+    }
+
+    /**
+     * Инициализировать макросы.
+     *
+     * @beforeClass
+     */
+    public static function setUpMacroses(): void
+    {
+        $macroses = new MacrosInit();
+        $macroses->init();
     }
 
 }
