@@ -6,6 +6,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Prokl\Testing\Tools\DataProvidersTrait;
 use Prokl\TestingTools\Tools\Macros\MacrosInit;
 use Prokl\TestingTools\Traits\ExceptionAsserts;
 use Prokl\TestingTools\Traits\LoaderTestContainerTrait;
@@ -22,6 +23,7 @@ class BaseTestCase extends TestCase
     use PHPUnitTrait;
     use ExceptionAsserts;
     use LoaderTestContainerTrait;
+    use DataProvidersTrait;
 
     /**
      * @var mixed $obTestObject
