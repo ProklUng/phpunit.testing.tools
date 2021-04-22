@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokl\TestingTools\Traits;
+namespace Prokl\TestingTools\Tools;
 
 use Exception;
 use GuzzleHttp\Client;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Class PHPUnitAPI
  * Хэлперы для тестирования API.
- * @package Tests
+ * @package Prokl\TestingTools\Tools
  *
  * @since 24.09.2020 Актуализация.
  * @since 29.09.2020 Актуализация.

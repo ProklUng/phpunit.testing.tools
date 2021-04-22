@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokl\TestingTools\Traits;
+namespace Prokl\TestingTools\Tools;
 
 use Exception;
 use stdClass;
@@ -8,7 +8,7 @@ use WP_Post;
 
 /**
  * Class PHPUnitWPMocks
- * @package Prokl\TestingTools\Traits
+ * @package Prokl\TestingTools\Tools
  */
 class PHPUnitWPMocks
 {

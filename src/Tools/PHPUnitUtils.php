@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokl\TestingTools\Traits;
+namespace Prokl\TestingTools\Tools;
 
 use Exception;
 use Faker\Factory;
@@ -14,7 +14,7 @@ use ReflectionProperty;
 /**
  * Class PHPUnitUtils
  * Утилиты для тестирования.
- * @package Tests
+ * @package Prokl\TestingTools\Tools
  */
 class PHPUnitUtils
 {
