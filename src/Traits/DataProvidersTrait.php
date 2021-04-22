@@ -1,6 +1,6 @@
 <?php
 
-namespace Prokl\Testing\Tools;
+namespace Prokl\TestingTools\Traits;
 
 use Faker\Factory;
 use Faker\Generator;
@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 /**
  * Class PHPUnitDataProviders
- * @package Prokl\Testing\Tools
+ * @package Prokl\TestingTools\Traits
  *
  * @since 14.10.2020 Переработка для придания работоспособности.
  */
