@@ -1,25 +1,8 @@
-# Продвинутое обращение с фасадами из Laravel.
+# Кастомные инструменты для PHPUnit тестов
 
-Отличается от обычного (для этой конструкции) тем, что не надо вызывать boot вне контейнера и внутри
-не используется "магический" доступ к контейнеру.
+**INTERNAL**
 
 ## Установка
 
-1) `composer require proklung/facade.bundle`
+1) `composer require proklung/phpunit-testing-tools`
 
-2) Активировать бандл в bundles.php (или в случае кастомных использований Symfony - в standalone_bundles.php).
-
-## Детали
-
-За основу взят пакет [https://github.com/IndraGunawan/facade-bundle](https://github.com/IndraGunawan/facade-bundle). 
-
-Существенное отличие: под капотом у фасадов нативная (ларавеловская) система мокинга с помощью Mockery. Плюс нативный
-способ моканья для тестов.
-
-## Нюансы
-
-Фасад должен наследоваться от `Prokl\FacadeBundle\Services\Services\AbstractFacade` и реализовывать метод
-getFacadeAccessor, возвращающий ID сервиса (все как в Laravel). Возможно возвращать с @ или без оного символа.
-
-Также он может быть - но это не обязательно - помечен тэгом `laravel.facade`. Без тэга оно само найдет его по
-признаку наследования от AbstractFacade.
