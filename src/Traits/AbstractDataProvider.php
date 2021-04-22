@@ -3,7 +3,6 @@
 namespace Prokl\TestingTools\Traits;
 
 use DateTime;
-use Prokl\Testing\Tools\DataProvidersTrait;
 
 abstract class AbstractDataProvider implements DataProviderInterface
 {

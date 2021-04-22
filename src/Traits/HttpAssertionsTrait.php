@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Prokl\TestingTools\Traits;
 
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
