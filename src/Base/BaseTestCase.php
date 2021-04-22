@@ -6,6 +6,9 @@ use Faker\Factory;
 use Faker\Generator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Prokl\TestingTools\Traits\ExceptionAsserts;
+use Prokl\TestingTools\Traits\LoaderTestContainerTrait;
+use Prokl\TestingTools\Traits\PHPUnitTrait;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -15,6 +18,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class BaseTestCase extends TestCase
 {
+    use PHPUnitTrait;
+    use ExceptionAsserts;
+    use LoaderTestContainerTrait;
+
     /**
      * @var mixed $obTestObject
      */
