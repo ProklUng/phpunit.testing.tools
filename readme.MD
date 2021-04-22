@@ -4,5 +4,5 @@
 
 ## Установка
 
-1) `composer require proklung/phpunit-testing-tools`
+`composer require --dev proklung/phpunit-testing-tools`
 
