@@ -11,8 +11,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/ProklUng/facade.bundle/issues",
-        "source": "https://github.com/ProklUng/facade.bundle"
+        "issues": "https://github.com/ProklUng/phpunit.testing.tools/issues",
+        "source": "https://github.com/ProklUng/phpunit.testing.tools"
     },
     "autoload": {
         "psr-4": {
