@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Prokl\TestingTools\Tools\Container\CompilerPass\MakePrivateServicePublic;
 
 /**
  * Class BuildContainer
@@ -107,6 +108,8 @@ final class BuildContainer
         foreach ($compilerPass->getPasses() as $pass) {
             $this->container->addCompilerPass($pass);
         }
+
+        $this->container->addCompilerPass(new MakePrivateServicePublic);
 
         foreach ($this->configs as $config) {
             $this->loadContainerConfig($config);
