@@ -51,33 +51,34 @@ class BaseTestCase extends TestCase
     protected function setUp(): void
     {
         // Контейнер DI Symfony.
-        if (function_exists('container')) {
-            $this->container = container();
+        if ($this->container !== null) {
             if ($this->container->has('test.service_container')) {
                 // Инициализация тестового контейнера.
                 static::$testContainer = $this->container->get('test.service_container')
                     ?: $this->container;
             }
 
-            $currentHttpHost = $this->container->getParameter('local.http.host');
+            if ($this->container->has('local.http.host')) {
+                $currentHttpHost = $this->container->getParameter('local.http.host');
 
-            $_SERVER['HTTP_HOST'] = $currentHttpHost;
-            $_SERVER['SERVER_NAME'] = $currentHttpHost;
+                $_SERVER['HTTP_HOST'] = $currentHttpHost;
+                $_SERVER['SERVER_NAME'] = $currentHttpHost;
 
-            $this->container->get('request')->setServer(
-                'HTTP_HOST',
-                $currentHttpHost
-            );
+                $this->container->get('request')->setServer(
+                    'HTTP_HOST',
+                    $currentHttpHost
+                );
 
-            $this->container->get('request')->setServer(
-                'SERVER_NAME',
-                $currentHttpHost
-            );
+                $this->container->get('request')->setServer(
+                    'SERVER_NAME',
+                    $currentHttpHost
+                );
 
-            $this->container->get('request')->setServer(
-                'HTTP_HOST',
-                $currentHttpHost
-            );
+                $this->container->get('request')->setServer(
+                    'HTTP_HOST',
+                    $currentHttpHost
+                );
+            }
         }
 
         Mockery::resetContainer();
