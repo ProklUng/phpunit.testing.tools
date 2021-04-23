@@ -44,6 +44,14 @@ final class BuildContainer
     private $projectDir;
 
     /**
+     * @param string $projectDir
+     */
+    public function setProjectDir(string $projectDir): void
+    {
+        $this->projectDir = $projectDir;
+    }
+
+    /**
      * BuildContainer constructor.
      *
      * @param array $yamlConfigs Конфиги.
@@ -82,7 +90,7 @@ final class BuildContainer
         $self = new self($yamlConfigs);
 
         if ($basePathConfig) {
-            $self->setBasePathConfig($basePathConfig);
+            $self->setBasePathConfig($_SERVER['DOCUMENT_ROOT'] . $basePathConfig);
         }
 
         return $self->build();
@@ -178,7 +186,7 @@ final class BuildContainer
      */
     public function setBasePathConfig(string $basePathConfig): void
     {
-        $this->basePathConfig = $this->getProjectDir() . $basePathConfig;
+        $this->basePathConfig = $basePathConfig;
     }
 
     /**
