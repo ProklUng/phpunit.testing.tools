@@ -19,7 +19,7 @@
             "Prokl\\TestingTools\\": "src"
         }
     },
-    "require-dev": {
+    "require": {
         "phpunit/phpunit": "^7.5.2 || ^8.0 || ^9.0",
         "mockery/mockery": "^1.4",
         "fzaninotto/faker": "^1.9",
