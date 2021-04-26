@@ -7,20 +7,19 @@ use Faker\Generator;
 use InvalidArgumentException;
 
 /**
- * Class PHPUnitDataProviders
+ * Trait DataProvidersTrait
  * @package Prokl\TestingTools\Traits
  *
  * @since 14.10.2020 Переработка для придания работоспособности.
  */
 trait DataProvidersTrait
 {
-
     /**
      * @param string $locale
      *
      * @return Generator
      */
-    final protected function getFaker($locale = 'en_US'): Generator
+    protected function getFaker($locale = 'en_US'): Generator
     {
         static $fakers = [];
 
@@ -38,13 +37,12 @@ trait DataProvidersTrait
         return $fakers[$locale];
     }
 
-
     /**
      * @param array $values
      *
      * @return mixed
      */
-    final protected function provideData(array $values)
+    protected function provideData(array $values)
     {
         $result = [];
 
@@ -60,7 +58,7 @@ trait DataProvidersTrait
      *
      * @return mixed
      */
-    final protected function provideDataFrom($dataProviders)
+    protected function provideDataFrom($dataProviders)
     {
         $values = array_reduce(
             $dataProviders,
@@ -81,7 +79,7 @@ trait DataProvidersTrait
      *
      * @return array
      */
-    final protected function provideCombinedDataFrom(
+    protected function provideCombinedDataFrom(
         ...$dataProviders
     ): array {
         /**
