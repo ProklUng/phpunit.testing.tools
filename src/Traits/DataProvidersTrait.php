@@ -47,6 +47,10 @@ trait DataProvidersTrait
         $result = [];
 
         foreach ($values as $key => $value) {
+            if (is_object($value) && $value instanceof \stdClass) {
+                $result[$key] = [(array)$value];
+                continue;
+            }
             $result[$key] = is_object($value) ? [$value->values()] : [$value];
         }
 
