@@ -65,4 +65,36 @@ trait DefaultDataProvidersTrait
         yield[new DateTime('now')];
         yield[new DateTime('tomorrow')];
     }
+
+    /**
+     * Относительная дата.
+     *
+     * @return Generator
+     */
+    public function provideDateTimeRelativeFormat(): ?Generator
+    {
+        yield['now'];
+        yield['yesterday'];
+        yield['tomorrow'];
+        yield['back of 10'];
+        yield['front of 10'];
+        yield['last day of February'];
+        yield['first day of next month'];
+        yield['last day of previous month'];
+        yield['last day of next month'];
+        yield['Y-m-d'];
+        yield['Y-m-d 10:00'];
+    }
+
+    /**
+     * Путь к несуществующему файлу.
+     *
+     * @return Generator
+     */
+    public function provideNotExistingFilePath(): ?Generator
+    {
+        yield['lets-test.doc'];
+        yield['lorem/ipsum.jpg'];
+        yield['surprise/me/one/more/time.txt'];
+    }
 }
