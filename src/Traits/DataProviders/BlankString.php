@@ -2,7 +2,7 @@
 
 namespace Prokl\TestingTools\Traits\DataProviders;
 
-use Prokl\TestingTools\AbstractDataProvider;
+use Prokl\TestingTools\Traits\AbstractDataProvider;
 
 class BlankString extends AbstractDataProvider
 {

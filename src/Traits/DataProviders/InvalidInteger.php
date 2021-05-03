@@ -2,8 +2,8 @@
 
 namespace Prokl\TestingTools\Traits\DataProviders;
 
+use Prokl\TestingTools\Traits\AbstractDataProvider;
 use stdClass;
-use Prokl\TestingTools\AbstractDataProvider;
 
 class InvalidInteger extends AbstractDataProvider
 {

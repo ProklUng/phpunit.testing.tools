@@ -3,7 +3,7 @@
 namespace Prokl\TestingTools\Traits\DataProviders;
 
 use stdClass;
-use Prokl\TestingTools\AbstractDataProvider;
+use Prokl\TestingTools\Traits\AbstractDataProvider;
 
 class InvalidIntegerish extends AbstractDataProvider
 {
