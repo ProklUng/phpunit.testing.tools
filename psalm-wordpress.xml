@@ -37,7 +37,6 @@
     <issueHandlers>
         <UndefinedConstant>
             <errorLevel type="suppress">
-                <directory name=""/>
                 <directory name="src"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
                 <directory name="utils"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
             </errorLevel>
@@ -45,7 +44,7 @@
 
         <UndefinedMagicPropertyFetch>
             <errorLevel type="suppress">
-                <directory name=""/>
+                <directory name="/"/>
                 <directory name="src"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
                 <directory name="utils"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
             </errorLevel>
@@ -53,7 +52,6 @@
 
         <UnresolvableInclude>
             <errorLevel type="suppress">
-                <directory name=""/>
                 <directory name="src"/>
                 <directory name="utils"/>
             </errorLevel>
