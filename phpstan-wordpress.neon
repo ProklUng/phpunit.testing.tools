@@ -1,0 +1,76 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - utils
+    scanDirectories:
+          - wp-content/plugins
+          - wp-content/themes
+          - wp-includes
+    symfony:
+    	constant_hassers: false
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+    		- '# is not subtype of Throwable#'
+    		- '#Call to an undefined static method #'
+    		- '#of class ReflectionClass constructor expects class-string#'
+    		- '#Psr\Container\ContainerInterface::getParameter#'
+    		- '#Function apply_filters invoked with 3 parameters, 2 required#'
+    		- '#Constant DB_#'
+    		- '#Call to an undefined method Corcel#'
+    		- '#Constant COOKIE#'
+    		- '#Constant WP#'
+    		- '#is neither abstract nor final#'
+    		# - '#with null as default value#'
+    		- '#has a nullable return type declaration#'
+    		- '#but containers should not be injected#'
+    		- '#strict_types#'
+    		- '#is not allowed to extend#'
+    		- '#Variable method call#'
+    		- '#Variable static property access#'
+    		- '#Variable property access#'
+    		- '#Variable static method call on string#'
+    		- '#Short ternary operator is not allowed#'
+    		- '#Class wpdb should be written#'
+    		- '#Class wp_locale should be written with#'
+    		- '#Class wp_query should be written with ::class#'
+    		- '#Language construct empty#'
+    		- '#^Only booleans are allowed in an if condition#'
+    		- '#^Only booleans are allowed in a negated boolean#'
+    		- '#^Only booleans are allowed in \|\|#'
+    		- '#^Only booleans are allowed in a ternary operator condition#'
+    		- '#^Only booleans are allowed in#'
+    		- '#class notation, string found#'
+    		- '#with default value#'
+    		- '#is not final, but since the containing class is abstract, it should be#'
+    		- '#code above always terminates#'
+    		- '# with a nullable type declaration#'
+    		- '# has an unused parameter#'
+    		- '#of anonymous function has no typehint#'
+    		- '#Call to an undefined method object::toArray#'
+    		- '#Class UrlToQueryItem does not exist#'
+    		- '#PHPDoc tag @method has invalid value#'
+    		- '#Unsafe usage of new static#'
+    		- '#should return mixed but return statement is missing#'
+    		- '#has\(\) with mixed will always evaluate to#'
+    		- '#Control structures using switch should not be used#'
+    		- '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'
+    		- '#in sprintf\(\) format must be quoted#'
+    		- '#Interface must be located in "Contract" namespace#'
+    		- '#returns bool type, so the name should start with is/has/was#'
+    		- '#Do not use @method tag in class docblock#'
+    		- '#with null as default value#'
+    		- '#Spread operator is not allowed#'
+    		- '#Instead of container injection, use specific service#'
+
+    ergebnis:
+        allowAbstractClasses: true
+        classesAllowedToBeExtended: []
+        classesNotRequiredToBeAbstractOrFinal: []
+        interfacesImplementedByContainers:
+            - Psr\Container\ContainerInterface
+
+#rules:
+#   - Ergebnis\PHPStan\Rules\Files\DeclareStrictTypesRule

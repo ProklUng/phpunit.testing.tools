@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    allowStringToStandInForClass="true"
+    allowCoercionFromStringToClassConst="true"
+    findUnusedPsalmSuppress="true"
+    skipChecksOnUnresolvableIncludes="true"
+    errorBaseline="baseline.xml"
+>
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+        <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
+    </plugins>
+    <stubs>
+        <file name="vendor/php-stubs/wordpress-stubs/wordpress-stubs.php"/>
+    </stubs>
+    <projectFiles>
+        <directory name=""/>
+        <directory name="utils"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <extraFiles>
+        <directory name="./wp-content/themes"/>
+        <directory name="./wp-includes"/>
+        <directory name="./wp-admin"/>
+        <directory name="./wp-content/plugins"/>
+        <directory name="./functions"/>
+    </extraFiles>
+
+    <issueHandlers>
+        <UndefinedConstant>
+            <errorLevel type="suppress">
+                <directory name=""/>
+                <directory name="src"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+                <directory name="utils"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+            </errorLevel>
+        </UndefinedConstant>
+
+        <UndefinedMagicPropertyFetch>
+            <errorLevel type="suppress">
+                <directory name=""/>
+                <directory name="src"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+                <directory name="utils"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+            </errorLevel>
+        </UndefinedMagicPropertyFetch>
+
+        <UnresolvableInclude>
+            <errorLevel type="suppress">
+                <directory name=""/>
+                <directory name="src"/>
+                <directory name="utils"/>
+            </errorLevel>
+        </UnresolvableInclude>
+
+    </issueHandlers>
+</psalm>
