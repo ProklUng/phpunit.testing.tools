@@ -46,9 +46,11 @@
         "phpstan/phpstan-mockery": "^0.12.11",
         "phpstan/phpstan-beberlei-assert": "^0.12.4",
         "phpstan/phpstan-deprecation-rules": "^0.12.6",
+        "phpstan/phpstan-phpunit": "^0.12.17",
+        "phpstan/phpstan-symfony": "^0.12.12",
+        "phpstan/phpstan-doctrine": "^0.12.26",
         "vimeo/psalm": "^4.3",
         "psalm/plugin-symfony": "^2.1",
-        "phpstan/phpstan-doctrine": "^0.12.26",
         "psalm/plugin-mockery": "^0.7.0",
         "ext-json": "*"
     }
