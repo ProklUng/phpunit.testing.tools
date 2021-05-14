@@ -53,6 +53,7 @@
         "psalm/plugin-symfony": "^2.1",
         "psalm/plugin-mockery": "^0.7.0",
         "dg/bypass-finals": "^1.2",
+        "gong023/assert_chain": "dev-master",
         "ext-json": "*"
     }
 }
