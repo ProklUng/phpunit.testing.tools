@@ -16,8 +16,8 @@ class CommandTestCase extends BaseTestCase
 {
     /**
      * @param Command $commandInstance
-     * @param string $commandName
-     * @param array $params
+     * @param string  $commandName
+     * @param array   $params
      *
      * @return string
      */
