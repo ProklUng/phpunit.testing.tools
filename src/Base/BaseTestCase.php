@@ -7,6 +7,7 @@ use Faker\Generator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Prokl\TestingTools\Tools\Macros\MacrosInit;
+use Prokl\TestingTools\Tools\PHPMockerFunctions;
 use Prokl\TestingTools\Traits\DataProvidersTrait;
 use Prokl\TestingTools\Traits\ExceptionAsserts;
 use Prokl\TestingTools\Traits\LoaderTestContainerTrait;
@@ -44,6 +45,11 @@ class BaseTestCase extends TestCase
      * @var Container $container Контейнер DI Symfony.
      */
     protected $container;
+
+    /**
+     * @var PHPMockerFunctions $mockerFunctions Мокер функций.
+     */
+    protected $mockerFunctions;
 
     /**
      * @inheritDoc
@@ -85,6 +91,8 @@ class BaseTestCase extends TestCase
         parent::setUp();
 
         $this->faker = Factory::create();
+
+        $this->mockerFunctions = new PHPMockerFunctions();
     }
 
     /**
@@ -99,6 +107,8 @@ class BaseTestCase extends TestCase
         parent::tearDown();
 
         Mockery::close();
+        // Сбросить замоканные функции.
+        $this->mockerFunctions->shutdown();
     }
 
     /**

@@ -52,4 +52,38 @@ class ContainerAwareBaseTestCase extends BaseTestCase
 - `provideDateTimeInstance` - инстанц DateTime
 - `provideNotExistingFilePath` - путь к несуществующему файлу
 
+## Мокер функций
 
+Обертка [над](https://github.com/php-mock/php-mock-mockery).
+
+Пример (в тесте, унаследованном от `BaseTestCase`):
+
+```php
+        // Замокается полностью (т.е. не важно с какими параметрами пройдет вызов) функция in_the_loop 
+        $this->mockerFunctions->setNamespace('\Tests\API')
+            ->full('in_the_loop', true)
+            ->mock();
+```
+
+`Namespace` - пространство имен, в котором мокается функция. 
+
+Или частичное моканье (в зависимости от аргументов):
+
+```php
+       // При вызове  get_cat_name с аргументом $this->idCategory вернет Mocked category
+       $this->mockerFunctions->setNamespace('Test\API\Entity')
+            ->partial('get_cat_name', 'Mocked category', $this->idCategory)
+            ->partial('category_description', 'Mocked category description', $this->idCategory)
+            ->mock();
+```
+
+При использовании этой фичи рекомендуется (во избежании проблем) на тест ставить аннотации:
+
+```php
+    /**
+     * data()
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+```
