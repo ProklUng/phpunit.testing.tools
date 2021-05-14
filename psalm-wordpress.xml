@@ -35,6 +35,18 @@
     </extraFiles>
 
     <issueHandlers>
+        <InvalidCatch>
+            <errorLevel type="suppress">
+                <referencedClass name="Psr\SimpleCache\InvalidArgumentException"/>
+                <referencedClass name="Psr\Cache\InvalidArgumentException"/>
+            </errorLevel>
+        </InvalidCatch>
+        <InvalidThrow>
+            <errorLevel type="suppress">
+                <referencedClass name="Psr\SimpleCache\InvalidArgumentException"/>
+                <referencedClass name="Psr\Cache\InvalidArgumentException"/>
+            </errorLevel>
+        </InvalidThrow>
         <UndefinedConstant>
             <errorLevel type="suppress">
                 <directory name="src"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
