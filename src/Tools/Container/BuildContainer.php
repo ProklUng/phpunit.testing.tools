@@ -82,11 +82,12 @@ final class BuildContainer
      *
      * @param array       $yamlConfigs    Конфиги.
      * @param string|null $basePathConfig Базовый путь к конфигам.
+     * @param array       $passes         Compiler passes.
      *
      * @return ContainerBuilder
      * @throws Exception
      */
-    public static function getTestContainer(array $yamlConfigs, ?string $basePathConfig = null) : ContainerBuilder
+    public static function getTestContainer(array $yamlConfigs, ?string $basePathConfig = null, array $passes = []) : ContainerBuilder
     {
         $self = new self($yamlConfigs);
 
@@ -94,14 +95,16 @@ final class BuildContainer
             $self->setBasePathConfig($_SERVER['DOCUMENT_ROOT'] . $basePathConfig);
         }
 
-        return $self->build();
+        return $self->build($passes);
     }
 
     /**
+     * @param array $customCompilerPasses Compiler passes.
+     *
      * @return ContainerBuilder
      * @throws Exception
      */
-    public function build() : ContainerBuilder
+    public function build(array $customCompilerPasses = []) : ContainerBuilder
     {
         $compilerPass = new PassConfig();
 
@@ -110,6 +113,10 @@ final class BuildContainer
         }
 
         $this->container->addCompilerPass(new MakePrivateServicePublic);
+
+        foreach ($customCompilerPasses as $customPass) {
+            $this->container->addCompilerPass($customPass);
+        }
 
         foreach ($this->configs as $config) {
             $this->loadContainerConfig($config);
