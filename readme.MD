@@ -30,7 +30,8 @@ class ContainerAwareBaseTestCase extends BaseTestCase
                 'dev/test_container.yaml',
                 'dev/local.yaml'
             ],
-            '/Resources/config'
+            '/Resources/config',
+            [new SampleCompilerPass()] // Опциональный параметр - кастомные compiler passes 
         );
 
         parent::setUp();
