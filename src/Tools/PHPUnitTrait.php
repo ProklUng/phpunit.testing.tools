@@ -5,6 +5,7 @@ namespace Prokl\TestingTools\Tools;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionException;
 use ReflectionProperty;
+use Prokl\TestingTools\Tools\PHPUnitUtils;
 
 /**
  * Trait PHPUnitTrait
