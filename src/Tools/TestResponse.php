@@ -37,7 +37,7 @@ class TestResponse
     /**
      * The response to delegate to.
      *
-     * @var Response
+     * @var Response $baseResponse
      */
     public $baseResponse;
 
@@ -115,7 +115,6 @@ class TestResponse
         return $this;
     }
 
-
     /**
      * Assert that the response has a not successful status code.
      *
@@ -138,12 +137,14 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertStatus($status): self
+    public function assertStatus(int $status): self
     {
         $actual = $this->getStatusCode();
 
         PHPUnit::assertSame(
-            $actual, $status, "Expected status code {$status} but received {$actual}."
+            $actual,
+            $status,
+            "Expected status code {$status} but received {$actual}."
         );
 
         return $this;
@@ -157,17 +158,19 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertHeader($headerName, $value = null): self
+    public function assertHeader(string $headerName, $value = null): self
     {
         PHPUnit::assertTrue(
-            $this->headers->has($headerName), "Header [{$headerName}] not present on response."
+            $this->headers->has($headerName),
+            "Header [{$headerName}] not present on response."
         );
 
         $actual = $this->headers->get($headerName);
 
         if (!is_null($value)) {
             PHPUnit::assertEquals(
-                $value, $this->headers->get($headerName),
+                $value,
+                $this->headers->get($headerName),
                 "Header [{$headerName}] was found, but value [{$actual}] does not match [{$value}]."
             );
         }
@@ -183,7 +186,7 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertPlainCookie($cookieName, $value = null): self
+    public function assertPlainCookie(string $cookieName, $value = null): self
     {
         $this->assertCookie(
             $cookieName,
@@ -196,12 +199,12 @@ class TestResponse
     /**
      * Asserts that the response contains the given cookie and equals the optional value.
      *
-     * @param string $cookieName Кука.
-     * @param mixed  $value      Значение.
+     * @param string     $cookieName Кука.
+     * @param mixed|null $value      Значение.
      *
      * @return $this
      */
-    public function assertCookie($cookieName, $value = null): self
+    public function assertCookie(string $cookieName, $value = null): self
     {
         PHPUnit::assertNotNull(
             $cookie = $this->getCookie($cookieName),
@@ -218,7 +221,8 @@ class TestResponse
         $actual = $cookieValue;
 
         PHPUnit::assertEquals(
-            $value, $actual,
+            $value,
+            $actual,
             "Cookie [{$cookieName}] was found, but value [{$actual}] does not match [{$value}]."
         );
 
@@ -232,7 +236,7 @@ class TestResponse
      *
      * @return Cookie|null
      */
-    private function getCookie($cookieName): ?Cookie
+    private function getCookie(string $cookieName): ?Cookie
     {
         foreach ($this->headers->getCookies() as $cookie) {
             if ($cookie->getName() === $cookieName) {
@@ -250,7 +254,7 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertSee($value): self
+    public function assertSee(string $value): self
     {
         PHPUnit::assertStringContainsString(
             $value,
@@ -267,10 +271,11 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertSeeText($value): self
+    public function assertSeeText(string $value): self
     {
         PHPUnit::assertStringNotContainsString(
-            $value, strip_tags($this->getContent())
+            $value,
+            strip_tags($this->getContent())
         );
 
         return $this;
@@ -283,10 +288,11 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertDontSee($value): self
+    public function assertDontSee(string $value): self
     {
         PHPUnit::assertStringNotContainsString(
-            $value, $this->getContent()
+            $value,
+            $this->getContent()
         );
 
         return $this;
@@ -299,7 +305,7 @@ class TestResponse
      *
      * @return $this
      */
-    public function assertDontSeeText($value): self
+    public function assertDontSeeText(string $value): self
     {
         PHPUnit::assertNotContains($value, [strip_tags($this->getContent())]);
 
@@ -317,8 +323,10 @@ class TestResponse
     public function assertJson(array $data): self
     {
         self::assertArraySubset(
-            $data, $this->decodeResponseJson(),
-            false, $this->assertJsonMessage($data)
+            $data,
+            $this->decodeResponseJson(),
+            false,
+            $this->assertJsonMessage($data)
         );
 
         return $this;
@@ -327,7 +335,7 @@ class TestResponse
     /**
      * Assert that the response has the exact given JSON.
      *
-     * @param array $data
+     * @param array $data Данные.
      *
      * @return $this
      */
@@ -345,7 +353,7 @@ class TestResponse
     /**
      * Assert that the response contains the given JSON fragment.
      *
-     * @param array $data
+     * @param array $data Данные.
      *
      * @return $this
      */
@@ -467,8 +475,8 @@ class TestResponse
     /**
      * Assert that the session has a given value.
      *
-     * @param string|array $key Ключ.
-     * @param mixed $value Значение.
+     * @param string|array $key   Ключ.
+     * @param mixed        $value Значение.
      *
      * @return $this
      * @throws Exception
@@ -561,7 +569,7 @@ class TestResponse
      * Handle dynamic calls into macros or pass missing methods to the base response.
      *
      * @param string $method
-     * @param array $args
+     * @param array  $args
      * @return mixed
      */
     public function __call($method, $args)

@@ -137,7 +137,7 @@ class PHPMockerFunctions
     /**
      * Готовый мок.
      *
-     * @param string $function
+     * @param string $function Функция.
      *
      * @return mixed|null
      */
@@ -152,6 +152,8 @@ class PHPMockerFunctions
      *
      * @param string $namespace    Пространство имен.
      * @param mixed  ...$functions Функции к обнулению.
+     *
+     * @return void
      */
     private function resetMockedFunctions(
         string $namespace,

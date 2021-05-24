@@ -16,8 +16,8 @@ trait HttpAssertionsTrait
      * Checks the success state of a response.
      *
      * @param Response $response Response object
-     * @param bool     $success  to define whether the response is expected to be successful
-     * @param string   $type
+     * @param boolean  $success  to define whether the response is expected to be successful
+     * @param string   $type     Type.
      */
     public function isSuccessful(Response $response, bool $success = true, string $type = 'text/html'): void
     {

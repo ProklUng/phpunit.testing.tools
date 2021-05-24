@@ -45,7 +45,7 @@ final class BuildContainer
     private $projectDir;
 
     /**
-     * @param string $projectDir
+     * @param string $projectDir DOCUMENT_ROOT.
      */
     public function setProjectDir(string $projectDir): void
     {
@@ -192,7 +192,7 @@ final class BuildContainer
     /**
      * Путь к конфигам. Относительно $projectDir.
      *
-     * @param string $basePathConfig
+     * @param string $basePathConfig Путь к конфигам.
      */
     public function setBasePathConfig(string $basePathConfig): void
     {
@@ -255,7 +255,7 @@ final class BuildContainer
     /**
      * Рекурсивно удалить директорию.
      *
-     * @param string $dir
+     * @param string $dir Директория.
      *
      * @return void
      */
@@ -264,8 +264,8 @@ final class BuildContainer
         if (is_dir($dir)) {
             $objects = scandir($dir);
             foreach ($objects as $object) {
-                if ($object !== "." && $object !== "..") {
-                    if (is_dir($dir.DIRECTORY_SEPARATOR.$object) && !is_link($dir."/".$object)) {
+                if ($object !== '.' && $object !== '..') {
+                    if (is_dir($dir.DIRECTORY_SEPARATOR.$object) && !is_link($dir.'/'.$object)) {
                         self::rrmdir($dir.DIRECTORY_SEPARATOR.$object);
                     } else {
                         unlink($dir.DIRECTORY_SEPARATOR.$object);

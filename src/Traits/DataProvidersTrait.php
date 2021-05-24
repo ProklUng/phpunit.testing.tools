@@ -15,11 +15,11 @@ use InvalidArgumentException;
 trait DataProvidersTrait
 {
     /**
-     * @param string $locale
+     * @param string $locale Локаль.
      *
      * @return Generator
      */
-    protected function getFaker($locale = 'en_US'): Generator
+    protected function getFaker(string $locale = 'en_US'): Generator
     {
         static $fakers = [];
 
@@ -38,7 +38,7 @@ trait DataProvidersTrait
     }
 
     /**
-     * @param array $values
+     * @param array $values Данные.
      *
      * @return mixed
      */

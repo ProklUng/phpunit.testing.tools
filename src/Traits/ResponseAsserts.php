@@ -4,6 +4,7 @@ namespace Prokl\TestingTools\Traits;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use JsonException;
 
 /**
  * Trait ResponseAsserts
@@ -18,15 +19,16 @@ trait ResponseAsserts
     /**
      * Assert that the response contains the given JSON fragment.
      *
-     * @param string $content
-     * @param array $data
+     * @param string $content Контент.
+     * @param array  $data    Данные.
      *
      * @return $this
      */
     public function assertJsonFragment(string $content, array $data) : self
     {
         $actual = json_encode(Arr::sortRecursive(
-            (array)$this->decodeResponseJson($content)));
+            (array)$this->decodeResponseJson($content)
+        ));
 
         foreach (Arr::sortRecursive($data) as $key => $value) {
             $expected = $this->jsonSearchStrings($key, $value);
@@ -46,16 +48,19 @@ trait ResponseAsserts
     /**
      * Assert that the response is a superset of the given JSON.
      *
-     * @param mixed $content
-     * @param array $data
-     * @param bool $strict
+     * @param mixed   $content Контент.
+     * @param array   $data    Данные.
+     * @param boolean $strict  Строгость.
      *
      * @return $this
      */
-    public function assertJson($content, array $data, $strict = false): self
+    public function assertJson($content, array $data, bool $strict = false): self
     {
         $this->assertArraySubset(
-            $data, $this->decodeResponseJson($content), $strict, $this->assertJsonMessage($content, $data)
+            $data,
+            $this->decodeResponseJson($content),
+            $strict,
+            $this->assertJsonMessage($content, $data)
         );
 
         return $this;
@@ -64,8 +69,8 @@ trait ResponseAsserts
     /**
      * Assert that the response has the exact given JSON.
      *
-     * @param mixed $content
-     * @param array $data
+     * @param mixed $content Контент.
+     * @param array $data    Данные.
      *
      * @return $this
      * @throws JsonException
@@ -87,13 +92,13 @@ trait ResponseAsserts
     /**
      * Assert that the response does not contain the given JSON fragment.
      *
-     * @param mixed $content
-     * @param array $data
-     * @param bool $exact
+     * @param mixed   $content Контент.
+     * @param array   $data    Данные.
+     * @param boolean $exact   Точность.
      *
      * @return $this
      */
-    public function assertJsonMissing($content, array $data, $exact = false): self
+    public function assertJsonMissing($content, array $data, bool $exact = false): self
     {
         if ($exact) {
             return $this->assertJsonMissingExact($content, $data);
@@ -122,8 +127,8 @@ trait ResponseAsserts
     /**
      * Assert that the response does not contain the exact JSON fragment.
      *
-     * @param mixed $content
-     * @param array $data
+     * @param mixed $content Контент.
+     * @param array $data    Данные.
      *
      * @return $this
      */
@@ -155,15 +160,15 @@ trait ResponseAsserts
     /**
      * Assert that the given string is contained within the response text.
      *
-     * @param $content
-     * @param string $value
+     * @param mixed  $content Контент.
+     * @param string $value   Значение.
      *
      * @return $this
      */
-    public function assertSeeText($content, $value): self
+    public function assertSeeText($content, string $value): self
     {
         $this->assertStringContainsString(
-            (string) $value,
+            $value,
             strip_tags($content)
         );
 
@@ -173,15 +178,16 @@ trait ResponseAsserts
     /**
      * Assert that the given string is contained within the response text.
      *
-     * @param $content
+     * @param mixed  $content
      * @param string $value
      *
      * @return $this
      */
-    public function assertDontSee($content, $value): self
+    public function assertDontSee($content, string $value): self
     {
         $this->assertStringNotContainsString(
-            (string) $value, strip_tags($content)
+            $value,
+            strip_tags($content)
         );
 
         return $this;
@@ -190,12 +196,12 @@ trait ResponseAsserts
     /**
      * Validate and return the decoded response JSON.
      *
-     * @param mixed $content
-     * @param string|null $key
+     * @param mixed       $content Контент.
+     * @param string|null $key     Ключ.
      *
      * @return mixed
      */
-    public function decodeResponseJson($content, $key = null)
+    public function decodeResponseJson($content, ?string $key = null)
     {
         $decodedResponse = json_decode($content, true, 512);
 
@@ -209,11 +215,11 @@ trait ResponseAsserts
     /**
      * Get the strings we need to search for when examining the JSON.
      *
-     * @param  string  $key
-     * @param  string  $value
+     * @param  string $key
+     * @param  string $value
      * @return array
      */
-    protected function jsonSearchStrings($key, $value): array
+    protected function jsonSearchStrings(string $key, string $value): array
     {
         $needle = substr(json_encode([$key => $value]), 1, -1);
 

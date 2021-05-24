@@ -15,9 +15,9 @@ trait ExceptionAsserts
     /**
      * Add expectation that the given exception would be thrown.
      *
-     * @param string $class
-     * @param string $message
-     * @param int $code
+     * @param string  $class   Класс.
+     * @param string  $message Сообщение.
+     * @param integer $code    Код ответа.
      *
      * @return void
      */

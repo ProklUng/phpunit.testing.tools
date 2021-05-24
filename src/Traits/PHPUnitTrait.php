@@ -19,9 +19,9 @@ trait PHPUnitTrait
     /**
      * Мок интерфейса.
      *
-     * @param string $className  Имя класса.
-     * @param string $method     Метод.
-     * @param mixed $returnValue Возвращаемое значение.
+     * @param string $className   Имя класса.
+     * @param string $method      Метод.
+     * @param mixed  $returnValue Возвращаемое значение.
      *
      * @return MockObject
      */
@@ -76,12 +76,14 @@ trait PHPUnitTrait
     /**
      * Проверка структуры массивы.
      *
-     * @param $keys
-     * @param $array
+     * @param array $keys  Ключи.
+     * @param array $array Массив.
+     *
+     * @return void
      *
      * @throws JsonException
      */
-    public function assertArrayStructure($keys, $array) : void
+    public function assertArrayStructure(array $keys, array $array) : void
     {
         $arrayKeys = array_keys($array);
 
@@ -343,7 +345,7 @@ trait PHPUnitTrait
     /**
      * assertTrue защищенного свойства.
      *
-     * @param string $prop Название переменной.
+     * @param string $prop    Название переменной.
      *
      * @param string $message
      * @throws ReflectionException

@@ -21,6 +21,9 @@ class FixtureServiceProvider extends AbstractServiceProvider
      */
     protected $singletons = [];
 
+    /**
+     * FixtureServiceProvider constructor.
+     */
     public function __construct()
     {
         $this->singletons = [
@@ -45,10 +48,9 @@ class FixtureServiceProvider extends AbstractServiceProvider
     /**
      * Loads fixture path
      *
-     * @access  protected
-     * @return  void
+     * @return void
      */
-    protected function loadPath(): void
+    private function loadPath(): void
     {
         $this->path = $_SERVER['DOCUMENT_ROOT']. self::PATH_FIXTURES;
     }

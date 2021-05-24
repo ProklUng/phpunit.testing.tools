@@ -21,10 +21,10 @@ class PHPUnitUtils
     /**
      * Мок статического метода.
      *
-     * @param string   $className    Полноразмерное имя класса.
-     * @param string   $method       Метод.
-     * @param mixed    $willbeReturn Возвращаемое значение.
-     * @param int|null $times        Количество раз.
+     * @param string       $className    Полноразмерное имя класса.
+     * @param string       $method       Метод.
+     * @param mixed        $willbeReturn Возвращаемое значение.
+     * @param integer|null $times        Количество раз.
      *
      * @return mixed
      */
@@ -32,7 +32,7 @@ class PHPUnitUtils
         string $className,
         string $method,
         $willbeReturn,
-        int $times = null
+        ?int $times = null
     ) {
         $mock = Mockery::mock('alias:'.$className);
         $mock->shouldReceive($method)
@@ -70,7 +70,7 @@ class PHPUnitUtils
      * @return ReflectionProperty
      * @throws ReflectionException
      */
-    public static function reflectProperty($object, $property): ReflectionProperty
+    public static function reflectProperty($object, string $property): ReflectionProperty
     {
         $reflection = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);
@@ -123,7 +123,7 @@ class PHPUnitUtils
      * @return mixed
      * @throws ReflectionException
      */
-    public static function getStaticProperty($className, $property)
+    public static function getStaticProperty($className, string $property)
     {
         $reflection = new ReflectionProperty($className, $property);
         $reflection->setAccessible(true);
@@ -141,7 +141,7 @@ class PHPUnitUtils
      * @return mixed
      * @throws ReflectionException
      */
-    public static function setStaticProperty($className, $property, $value): void
+    public static function setStaticProperty($className, string $property, $value): void
     {
         $reflection = new ReflectionProperty($className, $property);
         $reflection->setAccessible(true);
@@ -218,7 +218,7 @@ class PHPUnitUtils
     /**
      * Директория пуста?
      *
-     * @param string $dir
+     * @param string $dir Путь к директории.
      *
      * @return boolean
      * @throws Exception
@@ -240,7 +240,7 @@ class PHPUnitUtils
             $arResult[] = $dirItem;
         }
 
-        return empty($arResult);
+        return count($arResult) === 0;
     }
 
     /**
@@ -269,7 +269,7 @@ class PHPUnitUtils
     /**
      * Empty для ассоциативного массива.
      *
-     * @param array $array
+     * @param array $array Массив.
      *
      * @return boolean
      */
@@ -306,7 +306,7 @@ class PHPUnitUtils
     /**
      * Ассоциативный массив пуст?
      *
-     * @param array $array
+     * @param array $array Массив.
      *
      * @return boolean
      */
@@ -348,7 +348,7 @@ class PHPUnitUtils
     /**
      * Мок переменной, автовайренной сервисом.
      *
-     * @param mixed  $object   Объект
+     * @param mixed  $object   Объект.
      * @param string $variable Переменная.
      * @param mixed  $mock     Мок.
      *
@@ -356,7 +356,7 @@ class PHPUnitUtils
      */
     public static function mockServiceVariable(
         $object,
-        $variable,
+        string $variable,
         $mock
     ): void {
         self::setProtectedProperty(

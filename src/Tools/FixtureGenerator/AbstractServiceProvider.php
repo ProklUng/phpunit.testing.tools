@@ -20,6 +20,9 @@ abstract class AbstractServiceProvider implements ServiceProviderContract
      */
     protected $container;
 
+    /**
+     * AbstractServiceProvider constructor.
+     */
     public function __construct()
     {
         $this->container = containerLaravel();
@@ -37,8 +40,7 @@ abstract class AbstractServiceProvider implements ServiceProviderContract
     /**
      * bindSinletons.
      *
-     * @access  protected
-     * @return  void
+     * @return void
      */
     protected function bindSingletons(): void
     {

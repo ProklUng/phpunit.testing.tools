@@ -16,7 +16,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 trait LoaderTestContainerTrait
 {
-
     /**
      * @var array $containers Контейнеры.
      */

@@ -50,7 +50,7 @@ class PHPUnitAPI
     /**
      * Вызов API. Расчет на сырой HTML.
      *
-     * @param string $url     Точка входа.
+     * @param string $url      Точка входа.
      * @param array  $arParams Параметры.
      *
      * @return mixed
@@ -73,7 +73,7 @@ class PHPUnitAPI
      * Путь к роуту.
      *
      * @param string $routeName Название роута.
-     * @param array $arParams Параметры.
+     * @param array  $arParams  Параметры.
      *
      * @return string
      * @throws Exception

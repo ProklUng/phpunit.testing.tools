@@ -17,9 +17,9 @@ trait CollectionAsserts
     /**
      * Assert that the given collections are equal based on the specified key.
      *
-     * @param Collection $collection1
-     * @param Collection $collection2
-     * @param string $key
+     * @param Collection $collection1 Коллекция 1.
+     * @param Collection $collection2 Коллекция 2.
+     * @param string     $key         Ключ.
      *
      * @return void
      */
@@ -35,9 +35,9 @@ trait CollectionAsserts
     /**
      * Assert that the given collections are not equal based on the specified key.
      *
-     * @param Collection $collection1
-     * @param Collection $collection2
-     * @param string $key
+     * @param Collection $collection1 Коллекция 1.
+     * @param Collection $collection2 Коллекция 2.
+     * @param string     $key         Ключ.
      *
      * @return void
      */

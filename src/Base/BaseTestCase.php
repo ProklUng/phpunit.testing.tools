@@ -2,6 +2,7 @@
 
 namespace Prokl\TestingTools\Base;
 
+use Exception;
 use Faker\Factory;
 use Faker\Generator;
 use Mockery;
@@ -53,6 +54,7 @@ class BaseTestCase extends TestCase
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function setUp(): void
     {
@@ -67,8 +69,14 @@ class BaseTestCase extends TestCase
             if ($this->container->has('local.http.host')) {
                 $currentHttpHost = $this->container->getParameter('local.http.host');
 
-                $_SERVER['HTTP_HOST'] = $currentHttpHost;
-                $_SERVER['SERVER_NAME'] = $currentHttpHost;
+                // Глобалы могут быть установлены в конфиге phpunit.
+                if ($_SERVER['HTTP_HOST'] === null) {
+                    $_SERVER['HTTP_HOST'] = $currentHttpHost;
+                }
+
+                if ($_SERVER['SERVER_NAME'] === null) {
+                    $_SERVER['SERVER_NAME'] = $currentHttpHost;
+                }
 
                 $this->container->get('request')->setServer(
                     'HTTP_HOST',
@@ -77,11 +85,6 @@ class BaseTestCase extends TestCase
 
                 $this->container->get('request')->setServer(
                     'SERVER_NAME',
-                    $currentHttpHost
-                );
-
-                $this->container->get('request')->setServer(
-                    'HTTP_HOST',
                     $currentHttpHost
                 );
             }
@@ -121,5 +124,4 @@ class BaseTestCase extends TestCase
         $macroses = new MacrosInit();
         $macroses->init();
     }
-
 }

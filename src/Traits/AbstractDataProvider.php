@@ -4,10 +4,17 @@ namespace Prokl\TestingTools\Traits;
 
 use DateTime;
 
+/**
+ * Class AbstractDataProvider
+ * @package Prokl\TestingTools\Traits
+ */
 abstract class AbstractDataProvider implements DataProviderInterface
 {
     use DataProvidersTrait;
 
+    /**
+     * @return array|mixed
+     */
     final public function data()
     {
         return $this->provideData($this->values());
@@ -56,7 +63,7 @@ abstract class AbstractDataProvider implements DataProviderInterface
     }
 
     /**
-     * @return int
+     * @return integer
      */
     final protected function intNegative() : int
     {
@@ -64,7 +71,7 @@ abstract class AbstractDataProvider implements DataProviderInterface
     }
 
     /**
-     * @return int
+     * @return integer
      */
     final protected function intPositive() : int
     {
