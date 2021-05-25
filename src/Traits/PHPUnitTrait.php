@@ -5,6 +5,7 @@ namespace Prokl\TestingTools\Traits;
 use Exception;
 use JsonException;
 use PHPUnit\Framework\MockObject\MockObject;
+use Prokl\TestingTools\Tools\PHPUnitUtils;
 use ReflectionException;
 use ReflectionProperty;
 use Symfony\Component\DependencyInjection\Container;
