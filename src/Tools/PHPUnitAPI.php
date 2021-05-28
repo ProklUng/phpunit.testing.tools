@@ -10,6 +10,7 @@ use JsonException;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Router;
 
 /**
  * Class PHPUnitAPI
@@ -18,9 +19,20 @@ use Symfony\Component\Routing\RouteCollection;
  *
  * @since 24.09.2020 Актуализация.
  * @since 29.09.2020 Актуализация.
+ * @since 28.05.2021 Рефакторинг.
  */
 class PHPUnitAPI
 {
+    /**
+     * @var string $host Базовый хост.
+     */
+    public static $host = '';
+
+    /**
+     * @var Router|null $router
+     */
+    public static $router;
+
     /**
      * Вызов API.
      *
@@ -32,7 +44,7 @@ class PHPUnitAPI
      */
     public static function apiCall(string $url, array $arParams)
     {
-        $client = new Client(['base_uri' => container()->getParameter('test.host.url')]);
+        $client = new Client(['base_uri' => static::$host]);
 
         try {
             $response = $client->request('POST', $url, $arParams);
@@ -58,7 +70,7 @@ class PHPUnitAPI
      */
     public static function apiCallHtml(string $url, array $arParams = [])
     {
-        $client = new Client(['base_uri' => container()->getParameter('test.host.url')]);
+        $client = new Client(['base_uri' => static::$host]);
 
         try {
             $response = $client->request('GET', $url, $arParams);
@@ -80,14 +92,16 @@ class PHPUnitAPI
      */
     public static function getURLRouting(string $routeName, array $arParams = []) : string
     {
+        if (static::$router === null) {
+            throw new \Exception('Router not initialized.');
+        }
+
         if (!$routeName) {
             return '';
         }
 
-        /** @var RouteCollection $router */
-        $router = container()->get('symfony.get.routes');
         $context = new RequestContext();
-        $generator = new UrlGenerator($router, $context);
+        $generator = new UrlGenerator(static::$router->getRouteCollection(), $context);
 
         return $generator->generate($routeName, $arParams);
     }
