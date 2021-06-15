@@ -95,6 +95,20 @@ class BaseTestCase extends TestCase
                     $currentHttpHost
                 );
             }
+
+            $_GET  = $_POST = [];
+
+            if (!array_key_exists('REMOTE_ADDR', $_SERVER)) {
+                $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+            }
+
+            if (!array_key_exists('REQUEST_METHOD', $_SERVER)) {
+                $_SERVER['REQUEST_METHOD'] = 'GET';
+            }
+
+            if (!array_key_exists('REQUEST_URI', $_SERVER)) {
+                $_SERVER['REQUEST_URI'] = '';
+            }
         }
 
         Mockery::resetContainer();
