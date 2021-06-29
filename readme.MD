@@ -43,6 +43,16 @@ class ContainerAwareBaseTestCase extends BaseTestCase
 
 Подгрузятся конфиги сервисов из указанных файлов по указанному пути (относительно DOCUMENT_ROOT тестов).
 
+## CommandTestCase
+
+Базовый класс для тестирования консольных команд.
+
+Методы:
+
+- `executeCommand(Command $commandInstance, string $commandName, array $params = [])` - вернет то, что команда
+вывела на экран.
+- `runCommand(Command $command, $input = [])` - вернет результат выполнения метода `execute` команды.
+
 ## Трэйт DefaultDataProviders
 
 Несколько общих дата-провайдеров
