@@ -88,3 +88,23 @@ class ContainerAwareBaseTestCase extends BaseTestCase
      * @preserveGlobalState disabled
      */
 ```
+
+## Трэйт ServiceLocatorConstructorTrait
+
+Конструктор сервис-локаторов Symfony для тестов.
+
+Метод:
+
+- `constructServiceLocator(array $config)` - где `$config` массив вида:
+
+```php
+$object = new ClassName();
+
+$config = [
+ 'service_key' => ClassName::class,
+ 'service_key2' => $object,
+
+];
+```
+
+Если передать название класса в конфиге, то внутри метода класс будет инстанцирован.
