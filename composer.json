@@ -55,6 +55,7 @@
         "dg/bypass-finals": "^1.2",
         "squizlabs/php_codesniffer": "^3",
         "brain/monkey": "^2.6.0",
+        "friendsofphp/proxy-manager-lts": "^1.0",
         "ext-json": "*"
     }
 }

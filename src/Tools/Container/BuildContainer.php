@@ -4,6 +4,7 @@ namespace Prokl\TestingTools\Tools\Container;
 
 use Exception;
 use LogicException;
+use Prokl\TestingTools\Tools\ServiceMocker\CompilerPass\ProxyServiceWithMockPass;
 use ReflectionObject;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +44,11 @@ final class BuildContainer
      * @var string $projectDir
      */
     private $projectDir;
+
+    /**
+     * @var array $proxifiedServicesList
+     */
+    private $proxifiedServicesList = [];
 
     /**
      * BuildContainer constructor.
@@ -118,6 +124,7 @@ final class BuildContainer
         }
 
         $this->container->addCompilerPass(new MakePrivateServicePublic);
+        $this->container->addCompilerPass(new ProxyServiceWithMockPass);
 
         foreach ($customCompilerPasses as $customPass) {
             $this->container->addCompilerPass($customPass);
@@ -132,6 +139,21 @@ final class BuildContainer
         $this->container->compile(true);
 
         return $this->container;
+    }
+
+    /**
+     * Сервисы, подлежащие проксификации.
+     *
+     * @param array $proxifiedServicesList ID сервисов, подлежащих прокисификации.
+     *
+     * @return $this
+     */
+    public function setProxifiedServicesList(array $proxifiedServicesList): self
+    {
+        $this->proxifiedServicesList = $proxifiedServicesList;
+        $this->container->setParameter('happyr_service_mock', array_values($proxifiedServicesList));
+
+        return $this;
     }
 
     /**
