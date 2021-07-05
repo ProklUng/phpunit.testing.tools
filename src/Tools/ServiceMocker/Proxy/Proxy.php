@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Prokl\TestingTools\Tools\ServiceMocker\Proxy;
 
 /**
- * @internal
+ * Class Proxy
+ * @package Prokl\TestingTools\Tools\ServiceMocker\Proxy
  */
 class Proxy
 {
     /**
-     * @var ProxyDefinition $definition
+     * @var ProxyDefinition $definition Proxy definition.
      */
     private $definition;
 
     /**
      * Proxy constructor.
      *
-     * @param ProxyDefinition $definition
+     * @param ProxyDefinition $definition Proxy definition.
      */
     public function __construct(ProxyDefinition $definition)
     {
@@ -25,8 +26,8 @@ class Proxy
     }
 
     /**
-     * @param mixed $method
-     * @param mixed $args
+     * @param mixed $method Метод.
+     * @param mixed $args   Аргументы.
      *
      * @return mixed|ProxyDefinition
      */

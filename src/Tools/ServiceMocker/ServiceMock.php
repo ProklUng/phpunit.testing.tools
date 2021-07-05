@@ -22,8 +22,8 @@ class ServiceMock
     /**
      * Proxy all method calls from $proxy to $replacement.
      *
-     * @param mixed  $proxy
-     * @param object $replacement
+     * @param mixed  $proxy       Проксируемый сервис.
+     * @param object $replacement Мок сервиса.
      *
      * @return void
      */
@@ -39,9 +39,9 @@ class ServiceMock
     /**
      * Make the next call to $method name execute the $func.
      *
-     * @param mixed    $proxy
-     * @param string   $methodName
-     * @param callable ...$func
+     * @param mixed    $proxy      Проксируемый сервис.
+     * @param string   $methodName Метод.
+     * @param callable ...$func    Callbacks.
      *
      * @return void
      */
@@ -59,9 +59,9 @@ class ServiceMock
     /**
      * All folloing calls $methodName will execute $func.
      *
-     * @param mixed    $proxy
-     * @param string   $methodName
-     * @param callable $func
+     * @param mixed    $proxy      Проксируемый сервис.
+     * @param string   $methodName Метод.
+     * @param callable $func       Callback.
      *
      * @return void
      */
@@ -89,7 +89,7 @@ class ServiceMock
     /**
      * Reset this service.
      *
-     * @param mixed $proxy
+     * @param mixed $proxy Проксируемый сервис.
      *
      * @return void
      */
@@ -102,8 +102,8 @@ class ServiceMock
     /**
      * Remove all functions related to $methodName.
      *
-     * @param mixed  $proxy
-     * @param string $methodName
+     * @param mixed  $proxy      Проксируемый сервис.
+     * @param string $methodName Метод.
      *
      * @return void
      */
@@ -117,7 +117,7 @@ class ServiceMock
     /**
      * This method is called in the proxy's constructor.
      *
-     * @param LazyLoadingInterface $proxy
+     * @param LazyLoadingInterface $proxy Proxy.
      *
      * @return void
      *
@@ -131,7 +131,7 @@ class ServiceMock
     }
 
     /**
-     * @param LazyLoadingInterface $proxy
+     * @param LazyLoadingInterface $proxy Proxy.
      *
      * @return void
      */
@@ -149,11 +149,16 @@ class ServiceMock
 
     /**
      * @param LazyLoadingInterface $proxy
+     *
+     * @return ProxyDefinition
      */
     private static function getDefinition($proxy): ProxyDefinition
     {
         if (!$proxy instanceof LazyLoadingInterface || !method_exists($proxy, 'getWrappedValueHolderValue')) {
-            throw new \InvalidArgumentException(\sprintf('Object of class "%s" is not a proxy. Did you mark this service correctly?', get_class($proxy)));
+            throw new \InvalidArgumentException(
+                \sprintf('Object of class "%s" is not a proxy. Did you mark this service correctly?',
+                    get_class($proxy))
+            );
         }
 
         $key = sha1(get_class($proxy));

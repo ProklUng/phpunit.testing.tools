@@ -104,6 +104,7 @@ class ProxyDefinition
      * @param callable $func   Callback.
      *
      * @return void
+     * @throws LogicException
      */
     public function addMethod(string $method, callable $func): void
     {
@@ -129,6 +130,7 @@ class ProxyDefinition
      * @param callable $func   Callback.
      *
      * @return void
+     * @throws LogicException
      */
     public function appendMethodsQueue(string $method, callable $func): void
     {

@@ -28,10 +28,11 @@ use function var_export;
 class Constructor extends MethodGenerator
 {
     /**
-     * @param ReflectionClass   $originalClass
+     * @param ReflectionClass $originalClass
      * @param PropertyGenerator $valueHolder
      *
      * @return Constructor
+     * @throws ReflectionException
      */
     public static function generateMethod(ReflectionClass $originalClass, PropertyGenerator $valueHolder): self
     {

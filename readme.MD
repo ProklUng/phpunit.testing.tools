@@ -33,7 +33,8 @@ class ContainerAwareBaseTestCase extends BaseTestCase
             '/Resources/config',
             [new SampleCompilerPass()], // Опциональный параметр - кастомные compiler passes,
             'dev', // Окружение. По умолчанию - dev
-            true   // Debug. По умолчанию - true
+            true   // Debug. По умолчанию - true,
+            ['service_to_mock'] // Сервисы, подлежащие мокингу (см. подраздел Моки сервисов)
         );
 
         parent::setUp();
@@ -44,6 +45,74 @@ class ContainerAwareBaseTestCase extends BaseTestCase
 Отнаследовать от него тест.
 
 Подгрузятся конфиги сервисов из указанных файлов по указанному пути (относительно DOCUMENT_ROOT тестов).
+
+### Мокинг сервисов для функциональных тестов
+
+Механизм (на базе создания прокси-сервисов по заданному списку) взят из [бандла](https://github.com/Happyr/service-mocking) 
+и адаптирован под локальные нужды.
+
+```php
+use Prokl\TestingTools\Tools\ServiceMocker;
+use Prokl\TestingTools\Base\BaseTestCase;
+
+class MyTest extends BaseTestCase
+{
+    use RestoreServiceContainer;
+
+        protected function setUp(): void
+        {
+            parent::setUp();
+    
+            $this->container = BuildContainer::getTestContainer(
+                [
+                    'test_container.yaml'
+                ],
+                '/../../../../tests/Standalone/Resource/config',
+                [],
+                'dev',
+                true,
+                ['filesystem.local.adapter'] // Сервис, который будет заменен моком.
+            );
+    }
+
+    public function testFoo()
+    {
+        // For all calls
+         ServiceMock::all($this->container->get('filesystem.local.adapter'), 'getAdapter', function () {
+             return new Local(
+                 $_SERVER['DOCUMENT_ROOT'] .  '/test/');
+         });
+ 
+         $result = $this->container->get('filesystem.local.adapter');
+
+        // For only the next call
+         ServiceMock::next($this->container->get('filesystem.local.adapter'), 'getAdapter', function () {
+             return new Local(
+                 $_SERVER['DOCUMENT_ROOT'] .  '/test/');
+         });
+ 
+        // This will queue a new callable
+         ServiceMock::next($this->container->get('filesystem.local.adapter'), 'getAdapter', function () {
+             throw new \InvalidArgument('getAdapter can call once time!');
+         });
+
+        $mock = // create a PHPUnit mock or any other mock you want.
+        ServiceMocker::swap($this->container->get('filesystem.local.adapter'), $mock);
+
+        // ...
+        
+         $service = $this->container->get('filesystem.local.adapter');
+         $result = $service->getAdapter(); // Метод сервиса (или сервис целиком) подменен.   
+    }
+
+    protected function tearDown(): void
+    {
+        // To make sure we don't affect other tests
+        ServiceMock::resetAll();
+        // You can include the RestoreServiceContainer trait to automatically reset services
+    }
+}
+```
 
 ## CommandTestCase
 
