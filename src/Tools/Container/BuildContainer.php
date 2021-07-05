@@ -45,31 +45,29 @@ final class BuildContainer
     private $projectDir;
 
     /**
-     * @param string $projectDir DOCUMENT_ROOT.
-     */
-    public function setProjectDir(string $projectDir): void
-    {
-        $this->projectDir = $projectDir;
-    }
-
-    /**
      * BuildContainer constructor.
      *
-     * @param array $yamlConfigs Конфиги.
+     * @param array   $yamlConfigs Конфиги.
+     * @param string  $env         Окружение.
+     * @param boolean $debug       Режим отладки.
      */
-    public function __construct(array $yamlConfigs)
-    {
+    public function __construct(
+        array $yamlConfigs,
+        string $env = 'dev',
+        bool $debug = true
+    ) {
         $this->configs = $yamlConfigs;
 
         $this->container = new ContainerBuilder();
 
         $defaultParams = [
             'kernel.project_dir' => realpath($this->getProjectDir()) ?: $this->getProjectDir(),
-            'kernel.debug' => true,
+            'kernel.debug' => $debug,
             'kernel.cache_dir' => $this->getCacheDir(),
             'kernel.site.host' => $_SERVER['HTTP_HOST'],
             'kernel.http.host' => $this->getSiteHost(),
             'kernel.schema' => 'http://',
+            'kernel.environment' => $env,
         ];
 
         foreach ($defaultParams as $key => $defaultParam) {
@@ -83,13 +81,20 @@ final class BuildContainer
      * @param array       $yamlConfigs    Конфиги.
      * @param string|null $basePathConfig Базовый путь к конфигам.
      * @param array       $passes         Compiler passes.
+     * @param string      $env            Окружение.
+     * @param boolean     $debug          Режим отладки.
      *
      * @return ContainerBuilder
      * @throws Exception
      */
-    public static function getTestContainer(array $yamlConfigs, ?string $basePathConfig = null, array $passes = []) : ContainerBuilder
-    {
-        $self = new self($yamlConfigs);
+    public static function getTestContainer(
+        array $yamlConfigs,
+        ?string $basePathConfig = null,
+        array $passes = [],
+        string $env = 'dev',
+        bool $debug = true
+    ) : ContainerBuilder {
+        $self = new self($yamlConfigs, $env, $debug);
 
         if ($basePathConfig) {
             $self->setBasePathConfig($_SERVER['DOCUMENT_ROOT'] . $basePathConfig);
@@ -248,7 +253,7 @@ final class BuildContainer
 
         foreach ($autoConfigure as $tag => $class) {
             $this->container->registerForAutoconfiguration($class)
-                ->addTag($tag);
+                            ->addTag($tag);
         }
     }
 
@@ -274,5 +279,13 @@ final class BuildContainer
             }
             rmdir($dir);
         }
+    }
+
+    /**
+     * @param string $projectDir DOCUMENT_ROOT.
+     */
+    public function setProjectDir(string $projectDir): void
+    {
+        $this->projectDir = $projectDir;
     }
 }
