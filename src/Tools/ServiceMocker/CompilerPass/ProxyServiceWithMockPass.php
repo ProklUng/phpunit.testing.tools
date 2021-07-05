@@ -21,6 +21,10 @@ class ProxyServiceWithMockPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasParameter('happyr_service_mock')) {
+            return;
+        }
+
         $serviceIds = $container->getParameter('happyr_service_mock');
 
         foreach ($container->findTaggedServiceIds('happyr_service_mock') as $id => $tags) {

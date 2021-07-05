@@ -89,6 +89,7 @@ final class BuildContainer
      * @param array       $passes         Compiler passes.
      * @param string      $env            Окружение.
      * @param boolean     $debug          Режим отладки.
+     * @param array       $proxyServices  Сервисы к проксификации.
      *
      * @return ContainerBuilder
      * @throws Exception
@@ -98,9 +99,12 @@ final class BuildContainer
         ?string $basePathConfig = null,
         array $passes = [],
         string $env = 'dev',
-        bool $debug = true
+        bool $debug = true,
+        array $proxyServices = []
     ) : ContainerBuilder {
+
         $self = new self($yamlConfigs, $env, $debug);
+        $self->setProxifiedServicesList($proxyServices);
 
         if ($basePathConfig) {
             $self->setBasePathConfig($_SERVER['DOCUMENT_ROOT'] . $basePathConfig);
