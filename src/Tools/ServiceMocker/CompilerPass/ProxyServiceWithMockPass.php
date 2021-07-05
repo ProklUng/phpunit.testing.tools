@@ -31,7 +31,7 @@ class ProxyServiceWithMockPass implements CompilerPassInterface
             $serviceIds[] = $id;
         }
 
-        $proxiesDirectory = $container->getParameter('kernel.cache_dir').'/happyr_service_mock';
+        $proxiesDirectory = $container->getParameter('kernel.cache_dir') . '/happyr_service_mock';
         @mkdir($proxiesDirectory);
 
         $config = new Configuration();

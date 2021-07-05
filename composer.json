@@ -22,6 +22,11 @@
             "src/Functions/helpers.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Prokl\\TestingTools\\Tests\\": "tests"
+        }
+    },
     "require": {
         "phpunit/phpunit": "^7.5.2 || ^8.0 || ^9.0",
         "mockery/mockery": "^1.4",
