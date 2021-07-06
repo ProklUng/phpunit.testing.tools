@@ -1,0 +1,15 @@
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+
+  test_service:
+    class: Prokl\TestingTools\Tests\Fixtures\ExampleService
+
+  Prokl\TestingTools\Tests\Fixtures\ExampleService: '@test_service'
+
+  double.service.container:
+    class: Symfony\Component\DependencyInjection\ContainerBuilder

@@ -85,15 +85,17 @@ class BaseTestCase extends TestCase
                     $_SERVER['SERVER_NAME'] = $currentHttpHost;
                 }
 
-                $this->container->get('request')->setServer(
-                    'HTTP_HOST',
-                    $currentHttpHost
-                );
+                if ($this->container->has('request')) {
+                    $this->container->get('request')->setServer(
+                        'HTTP_HOST',
+                        $currentHttpHost
+                    );
 
-                $this->container->get('request')->setServer(
-                    'SERVER_NAME',
-                    $currentHttpHost
-                );
+                    $this->container->get('request')->setServer(
+                        'SERVER_NAME',
+                        $currentHttpHost
+                    );
+                }
             }
 
             $_GET  = $_POST = [];
