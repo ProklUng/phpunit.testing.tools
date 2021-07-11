@@ -62,5 +62,8 @@
         "brain/monkey": "^2.6.0",
         "friendsofphp/proxy-manager-lts": "^1.0",
         "ext-json": "*"
+    },
+    "require-dev": {
+        "icanhazstring/composer-unused": "^0.7.5"
     }
 }

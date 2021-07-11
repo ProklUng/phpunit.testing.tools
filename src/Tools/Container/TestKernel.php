@@ -16,9 +16,25 @@ class TestKernel extends Kernel
     /**
      * @inheritDoc
      */
+    public function getCacheDir(): string
+    {
+        return sys_get_temp_dir() . '/test_cache';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLogDir(): string
+    {
+        return sys_get_temp_dir() . '/test_logs';
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function registerBundles()
     {
-
+        return [];
     }
 
     /**
