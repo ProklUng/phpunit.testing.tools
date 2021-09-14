@@ -17,6 +17,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class BaseTestCase
@@ -50,6 +51,11 @@ class BaseTestCase extends TestCase
     protected $container;
 
     /**
+     * @var KernelInterface | null $kernel
+     */
+    protected static $kernel;
+
+    /**
      * @var PHPMockerFunctions $mockerFunctions Мокер функций.
      */
     protected $mockerFunctions;
@@ -67,6 +73,10 @@ class BaseTestCase extends TestCase
     {
         // Контейнер DI Symfony.
         if ($this->container !== null) {
+            if ($this->container->has('kernel')) {
+                self::$kernel = $this->container->get('kernel');
+            }
+
             if ($this->container->has('test.service_container')) {
                 // Инициализация тестового контейнера.
                 static::$testContainer = $this->container->get('test.service_container')

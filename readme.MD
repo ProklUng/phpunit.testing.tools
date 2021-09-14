@@ -127,8 +127,6 @@ class MyTest extends BaseTestCase
 ## Zenstruck testing tools
 
 [1](https://github.com/kbond/console-test) - console.
-[2](https://github.com/kbond/messenger-test) - messenger.
-[3](https://github.com/kbond/mailer-test) - mailer.
 
 ## Трэйт DefaultDataProviders
 
