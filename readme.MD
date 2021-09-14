@@ -193,3 +193,117 @@ $config = [
 ```
 
 Если передать название класса в конфиге, то внутри метода класс будет инстанцирован.
+
+## Console test
+
+Форк [пакета](https://github.com/kbond/console-test)
+
+```php
+use App\Command\CreateUserCommand;
+use Prokl\TestingTools\Base\BaseTestCase;
+use Prokl\TestingTools\Tools\Console\InteractsWithConsole;
+
+class CreateUserCommandTest extends BaseTestCase
+{
+    use InteractsWithConsole;
+    
+    public function test_can_create_user(): void
+    {
+        $this->executeConsoleCommand('create:user kbond --admin --role=ROLE_EMPLOYEE --role=ROLE_MANAGER')
+            ->assertSuccessful() // command exit code is 0
+            ->assertOutputContains('Creating admin user "kbond"')
+            ->assertOutputContains('with roles: ROLE_EMPLOYEE, ROLE_MANAGER')
+            ->assertOutputNotContains('regular user')
+        ;
+
+        // advanced usage
+        $this->consoleCommand(CreateUserCommand::class) // can use the command class or "name"
+            ->splitOutputStreams() // by default stdout/stderr are combined, this options splits them
+            ->addArgument('kbond')
+            ->addOption('--admin') // with or without "--" prefix
+            ->addOption('role', ['ROLE_EMPLOYEE', 'ROLE_MANAGER'])
+            ->addOption('-R') // shortcut options require the "-" prefix
+            ->addOption('-vv') // by default, output has normal verbosity, use the standard options to change (-q, -v, -vv, -vvv)
+            ->addOption('--ansi') // by default, output is undecorated, use this option to decorate
+            ->execute() // run the command
+            ->assertSuccessful()
+            ->assertStatusCode(0) // equivalent to ->assertSuccessful()
+            ->assertOutputContains('Creating admin user "kbond"')
+            ->assertErrorOutputContains('this is in stderr') // used in conjunction with ->splitOutputStreams()
+            ->assertErrorOutputNotContains('admin user') // used in conjunction with ->splitOutputStreams()
+            ->dump() // dump() the status code/outputs and continue
+            ->dd() // dd() the status code/outputs
+        ;
+
+        // testing interactive commands
+        $this->executeConsoleCommand('create:user', ['kbond'])
+            ->assertSuccessful()
+            ->assertOutputContains('Creating regular user "kbond"')
+        ;
+        
+        // advanced testing interactive commands
+        $this->consoleCommand(CreateUserCommand::class)
+            ->addInput('kbond')
+            ->addOption('--no-interaction') // commands are run interactively if input is provided, use this option to disable
+            ->execute()
+            ->assertSuccessful()
+            ->assertOutputContains('Creating regular user "kbond"')
+        ;
+        
+        // access result
+        $result = $this->executeConsoleCommand('create:user');
+
+        $result->statusCode();
+        $result->output(); 
+        $result->errorOutput(); 
+    }
+}
+```
+
+Или:
+
+```php
+use App\Command\CreateUserCommand;
+use PHPUnit\Framework\TestCase;
+use Prokl\TestingTools\Tools\Console\TestCommand;
+
+class CreateUserCommandTest extends TestCase
+{
+    public function test_can_create_user(): void
+    {
+        TestCommand::for(new CreateUserCommand(/** args... */))
+            ->splitOutputStreams() // by default stdout/stderr are combined, this options splits them
+            ->addArgument('kbond')
+            ->addOption('--admin') // with or without "--" prefix
+            ->addOption('role', ['ROLE_EMPLOYEE', 'ROLE_MANAGER'])
+            ->addOption('-R') // shortcut options require the "-" prefix
+            ->addOption('-vv') // by default, output has normal verbosity, use the standard options to change (-q, -v, -vv, -vvv)
+            ->addOption('--ansi') // by default, output is undecorated, use this option to decorate
+            ->execute()
+            ->assertSuccessful()
+            ->assertStatusCode(0) // equivalent to ->assertSuccessful()
+            ->assertOutputContains('Creating admin user "kbond"')
+            ->assertErrorOutputContains('this is in stderr') // used in conjunction with ->splitOutputStreams()
+            ->assertErrorOutputNotContains('admin user') // used in conjunction with ->splitOutputStreams()
+            ->dump() // dump() the status code/outputs and continue
+            ->dd() // dd() the status code/outputs
+        ;
+        
+        // testing interactive commands
+        TestCommand::for(new CreateUserCommand(/** args... */))
+            ->addInput('kbond')
+            ->addOption('--no-interaction') // commands are run interactively if input is provided, use this option to disable
+            ->execute()
+            ->assertSuccessful()
+            ->assertOutputContains('Creating regular user "kbond"')
+        ;
+
+        // access result
+        $result = TestCommand::for(new CreateUserCommand(/** args... */))->execute();
+
+        $result->statusCode();
+        $result->output(); 
+        $result->errorOutput(); 
+    }
+}
+```
