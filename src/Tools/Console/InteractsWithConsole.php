@@ -2,16 +2,22 @@
 
 namespace Prokl\TestingTools\Tools\Console;
 
+use LogicException;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
- * @author Kevin Bond <kevinbond@gmail.com>
+ * @since 14.09.2021
  */
 trait InteractsWithConsole
 {
     /**
-     * @param string $command
-     * @param array  $inputs
+     * @var Application|null $cliApplication Application CLI.
+     */
+    protected $cliApplication;
+
+    /**
+     * @param string $command Название команды.
+     * @param array  $inputs  Входящие параметры.
      *
      * @return CommandResult
      */
@@ -24,16 +30,19 @@ trait InteractsWithConsole
     }
 
     /**
-     * @param string $command
+     * @param string $command Название команды.
      *
      * @return TestCommand
+     * @throws LogicException Когда нет контейнера или ядра.
      */
     final protected function consoleCommand(string $command): TestCommand
     {
         if (self::$kernel === null) {
-            throw new \LogicException('Cannot work without container & kernel');
+            throw new LogicException('Cannot work without container & kernel');
         }
 
-        return TestCommand::from(new Application(self::$kernel), $command);
+        $application = $this->cliApplication ?? new Application(self::$kernel);
+
+        return TestCommand::from($application, $command);
     }
 }

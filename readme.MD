@@ -114,6 +114,29 @@ class MyTest extends BaseTestCase
 }
 ```
 
+## BootTestKernelTrait
+
+```php
+
+use Prokl\TestingTools\Traits\BootTestKernelTrait;
+
+class ExampleTest extends \Prokl\TestingTools\Base\BaseTestCase
+{
+    use BootTestKernelTrait;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $container = new ContainerBuilder();
+        
+        // ... Наполнение тестового контейнера.
+        
+        self::$kernel = $this->bootTestKernel($container);
+    }
+}
+```
+
 ## CommandTestCase
 
 Базовый класс для тестирования консольных команд.
@@ -123,10 +146,6 @@ class MyTest extends BaseTestCase
 - `executeCommand(Command $commandInstance, string $commandName, array $params = [])` - вернет то, что команда
 вывела на экран.
 - `runCommand(Command $command, $input = [])` - вернет результат выполнения метода `execute` команды.
-
-## Zenstruck testing tools
-
-[1](https://github.com/kbond/console-test) - console.
 
 ## Трэйт DefaultDataProviders
 
@@ -202,10 +221,30 @@ $config = [
 use App\Command\CreateUserCommand;
 use Prokl\TestingTools\Base\BaseTestCase;
 use Prokl\TestingTools\Tools\Console\InteractsWithConsole;
+use Prokl\TestingTools\Traits\BootTestKernelTrait;
 
 class CreateUserCommandTest extends BaseTestCase
 {
     use InteractsWithConsole;
+    use BootTestKernelTrait;
+        
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $container = new ContainerBuilder();
+
+        $container->setDefinition(
+            IntegrityCheck::class,
+            new Definition(IntegrityCheck::class, [])
+        )->setTags(['console.command' => ['command' => 'module:еуые']])->setPublic(true);
+
+
+        self::$kernel = $this->bootTestKernel($container);
+
+        $this->cliApplication = new \Symfony\Bundle\FrameworkBundle\Console\Application(self::$kernel);
+        $this->cliApplication->add($container->get(IntegrityCheck::class));
+    }
     
     public function test_can_create_user(): void
     {

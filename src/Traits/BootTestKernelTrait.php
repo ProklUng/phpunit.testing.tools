@@ -3,7 +3,6 @@
 namespace Prokl\TestingTools\Traits;
 
 use Prokl\TestingTools\Tools\Container\TestKernel;
-use ReflectionException;
 use ReflectionObject;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -24,7 +23,6 @@ trait BootTestKernelTrait
      * @param boolean          $debug     Отладка.
      *
      * @return Kernel
-     * @throws ReflectionException Ошибки рефлексии.
      */
     protected function bootTestKernel(
         ContainerBuilder $container,
