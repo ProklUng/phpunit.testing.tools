@@ -124,6 +124,12 @@ class MyTest extends BaseTestCase
 вывела на экран.
 - `runCommand(Command $command, $input = [])` - вернет результат выполнения метода `execute` команды.
 
+## Zenstruck testing tools
+
+[1](https://github.com/kbond/console-test) - console.
+[2](https://github.com/kbond/messenger-test) - messenger.
+[3](https://github.com/kbond/mailer-test) - mailer.
+
 ## Трэйт DefaultDataProviders
 
 Несколько общих дата-провайдеров
