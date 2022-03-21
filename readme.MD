@@ -346,3 +346,41 @@ class CreateUserCommandTest extends TestCase
     }
 }
 ```
+
+## Прочее
+
+### Invader ([из пакета](https://github.com/spatie/invade))
+
+```php
+class MyClass
+{
+    private string $privateProperty = 'private value';
+
+    private function privateMethod(): string
+    {
+        return 'private return value';
+    }
+}
+
+$myClass = new Myclass();
+```
+
+This is how you can get the value of the private property using the `invade` function.
+
+```php
+invade($myClass)->privateProperty; // returns 'private value'
+```
+
+The `invade` function also allows you to change private values.
+
+```php
+invade($myClass)->privateProperty = 'changed value';
+invade($myClass)->privateProperty; // returns 'changed value
+```
+
+Using `invade` you can also call private functions.
+
+```php
+invade($myClass)->privateMethod(); // returns 'private return value'
+```
+

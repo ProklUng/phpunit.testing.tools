@@ -2,6 +2,7 @@
 
 use Illuminate\Container\Container;
 use Prokl\TestingTools\Tools\FixtureGenerator\FixtureManager;
+use Prokl\TestingTools\Tools\Invader;
 
 if (!function_exists('containerLaravel')) {
     /**
@@ -26,5 +27,12 @@ if (!function_exists('faker')) {
     function faker()
     {
         return FixtureManager::getFaker();
+    }
+}
+
+if (! function_exists('invade')) {
+    function invade(object $object)
+    {
+        return new Invader($object);
     }
 }
