@@ -3,8 +3,6 @@
 namespace Prokl\TestingTools\Base;
 
 use Exception;
-use Faker\Factory;
-use Faker\Generator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Prokl\TestingTools\Tools\Macros\MacrosInit;
@@ -34,11 +32,6 @@ class BaseTestCase extends TestCase
      * @var mixed $obTestObject
      */
     protected $obTestObject;
-
-    /**
-     * @var Generator | null $faker
-     */
-    protected $faker;
 
     /**
      * @var ContainerInterface $testContainer Тестовый контейнер.
@@ -125,8 +118,6 @@ class BaseTestCase extends TestCase
 
         Mockery::resetContainer();
         parent::setUp();
-
-        $this->faker = Factory::create();
 
         $this->mockerFunctions = new PHPMockerFunctions();
     }
