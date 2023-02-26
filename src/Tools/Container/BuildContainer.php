@@ -70,7 +70,7 @@ final class BuildContainer
             'kernel.project_dir' => realpath($this->getProjectDir()) ?: $this->getProjectDir(),
             'kernel.debug' => $debug,
             'kernel.cache_dir' => $this->getCacheDir(),
-            'kernel.site.host' => $_SERVER['HTTP_HOST'],
+            'kernel.site.host' => isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '',
             'kernel.http.host' => $this->getSiteHost(),
             'kernel.schema' => 'http://',
             'kernel.environment' => $env,

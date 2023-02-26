@@ -21,11 +21,6 @@ final class CommandTester
      */
     private $command;
 
-    /**
-     * @var InputInterface $input
-     */
-    private $input;
-
     public function __construct(Command $command, InputInterface $input)
     {
         $this->command = $command;

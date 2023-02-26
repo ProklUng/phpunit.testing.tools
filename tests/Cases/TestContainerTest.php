@@ -29,7 +29,7 @@ class TestContainerTest extends BaseTestCase
     /**
      * @var TestKernel $kernel Test Kernel.
      */
-    private $kernel;
+    protected static $kernel;
 
     /**
      * @inheritDoc
@@ -41,13 +41,13 @@ class TestContainerTest extends BaseTestCase
             [
                 'test_container.yaml'
             ],
-            '/tests/Fixtures/'
+            'tests/Fixtures'
         );
 
-        $this->kernel = $this->bootTestKernel($this->container);
+        self::$kernel = $this->bootTestKernel($this->container);
 
         $this->obTestObject = new CustomTestContainer(
-            $this->kernel,
+            self::$kernel,
             'double.service.container'
         );
 
@@ -62,7 +62,7 @@ class TestContainerTest extends BaseTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        $this->kernel->shutdown();
+        self::$kernel->shutdown();
         $this->obTestObject->reset();
     }
 
