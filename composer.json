@@ -30,7 +30,7 @@
     "require": {
         "phpunit/phpunit": "^7.5.2 || ^8.0 || ^9.0",
         "mockery/mockery": "^1.4",
-        "fzaninotto/faker": "^1.9.2",
+        "fakerphp/faker": "^1",
         "illuminate/support": "~6 | ~7 | ~8",
         "illuminate/container": "~6 | ~7 | ~8",
         "symfony/dependency-injection": "^4.4 || ^5.0",
@@ -67,5 +67,12 @@
     },
     "require-dev": {
         "icanhazstring/composer-unused": "^0.7.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "composer/package-versions-deprecated": true,
+            "icanhazstring/composer-unused": true
+        }
     }
 }
